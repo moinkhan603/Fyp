@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:toast/toast.dart';
 import 'login.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class SecurityCheck extends StatefulWidget {
   @override
   _SecurityCheckState createState() => _SecurityCheckState();
