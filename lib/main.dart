@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'login.dart';
+import 'package:flutter_overboard/flutter_overboard.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -47,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
-
+  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,54 +60,103 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
+      key: _globalKey,
+      body:OverBoard(
+        pages: pages,
+        showBullets: true,
+        skipCallback: () {
+          _globalKey.currentState.showSnackBar(SnackBar(
+            content: Text("Skip clicked"),
+          ));
+        },
+        finishCallback: () {
+//          _globalKey.currentState.showSnackBar(SnackBar(
+//            content: Text("Finish clicked"),
+//          ));
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
 
-            Text(
-
-              "Follow Me "+"\n"+"Navigation",style: GoogleFonts.pacifico(
-              textStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 40 ),
-
-            ),
-
-            ),
-
-            SizedBox(height: 10,),
-            Text("Get Direction in Augmented Reality"+"\n"+"For selected tracks in Islamabad",style: GoogleFonts.roboto(
-              textStyle: TextStyle(fontSize: 20 ),
-
-            ),),
-            SizedBox(height: 10,),
-            RaisedButton(
-              textColor: Colors.white,
-              color: Color(0xffFDCC17),
-              child: Text("Get Started",style: TextStyle(letterSpacing: 1),),
-              onPressed: () {
-                Navigator.push(
+          Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => loginScreen()),
                 );
 
-              },
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-              ),
-            ),
 
 
-            Center(child: Image.asset("assets/images/mnt.png",height: 350,))
-
-
-
-
-          ],
-        ),
+        },
       ),
+
+//      Padding(
+//        padding: const EdgeInsets.all(10.0),
+//        child: Column(
+//
+//          mainAxisAlignment: MainAxisAlignment.center,
+//          crossAxisAlignment: CrossAxisAlignment.start,
+//          children: <Widget>[
+//
+//            Text(
+//
+//              "Follow Me "+"\n"+"Navigation",style: GoogleFonts.pacifico(
+//              textStyle: TextStyle(fontWeight: FontWeight.bold,fontSize: 40 ),
+//
+//            ),
+//
+//            ),
+//
+//            SizedBox(height: 10,),
+//            Text("Get Direction in Augmented Reality"+"\n"+"For selected tracks in Islamabad",style: GoogleFonts.roboto(
+//              textStyle: TextStyle(fontSize: 20 ),
+//
+//            ),),
+//            SizedBox(height: 10,),
+//            RaisedButton(
+//              textColor: Colors.white,
+//              color: Color(0xffFDCC17),
+//              child: Text("Get Started",style: TextStyle(letterSpacing: 1),),
+//              onPressed: () {
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(builder: (context) => loginScreen()),
+//                );
+//
+//              },
+//              shape: new RoundedRectangleBorder(
+//                borderRadius: new BorderRadius.circular(30.0),
+//              ),
+//            ),
+//
+//
+//            Center(child: Image.asset("assets/images/mnt.png",height: 350,))
+//
+//
+//
+//
+//          ],
+//        ),
+//      ),
     );
   }
 }
+
+
+final pages = [
+  PageModel(
+
+      color: const Color(0xFF0097A7),
+     imageAssetPath: 'assets/images/first.png',
+      title: 'Get',
+      body: 'Make Your own stratergy',
+      doAnimateImage: true),
+  PageModel(
+      color: const Color(0xFF536DFE),
+      imageAssetPath: 'assets/images/secnd.png',
+      title: 'Set',
+      body: 'Navigate Your World Faster',
+      doAnimateImage: true),
+  PageModel(
+      color: const Color(0xFF9B90BC),
+      imageAssetPath: 'assets/images/third.png',
+      title: 'GO!',
+      body: 'Follow Your Passion',
+      doAnimateImage: true),
+
+];

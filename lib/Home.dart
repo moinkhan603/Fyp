@@ -1,91 +1,124 @@
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'profile2.dart';
+import 'package:fyp/trailInfo.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'profile.dart';
+import 'Navigation.dart';
 class HomeScrren extends StatefulWidget {
+
+
+
+
+
   @override
   _HomeScrrenState createState() => _HomeScrrenState();
 }
 
 class _HomeScrrenState extends State<HomeScrren> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+  final Color primary = Colors.white;
+
+  final Color active = Colors.grey.shade800;
+
+  final Color divider = Colors.grey.shade600;
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [
+
+//    Recent(),
+//    Trending(),
+//    Random(),
+//    Favouirites()
+
+Profile(),
+    Navigation(),
+    trailInfo()
+
+  ];
+
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+        key: _key,
       backgroundColor: Colors.white.withOpacity(0.95),
-      bottomNavigationBar:BottomNavigationBar(
-        backgroundColor: Colors.black87,
-        currentIndex: 0, // this will be set when a new tab is tapped
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Colors.white,
-            icon: new Icon(Icons.person,color: Colors.white),
-            title: new Text('Profile',style: TextStyle(color: Colors.white)),
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Colors.white,
-            icon: new Icon(Icons.location_on,color: Colors.white,),
-            title: new Text('Navigation',style: TextStyle(color: Colors.white),),
-          ),
-
+      bottomNavigationBar:FancyBottomNavigation(
+        barBackgroundColor: Colors.black87,
+        circleColor: Colors.orange,
+        activeIconColor: Colors.black,
+        textColor: Colors.white,
+        inactiveIconColor: Colors.white,
+        tabs: [
+          TabData(iconData: Icons.home, title: "Home",),
+          TabData(iconData: Icons.location_on, title: "Search"),
+          TabData(iconData: Icons.wb_incandescent, title: "Trail Info")
         ],
+        onTabChangedListener: (position) {
+          setState(() {
+            _currentIndex = position;
+          });
+        },
       ),
 
-      appBar: AppBar(backgroundColor: Colors.black87,title:Text(
+//      BottomNavigationBar(
+//        backgroundColor: Colors.black87,
+//        onTap: onTabTapped, // new
+//        currentIndex: _currentIndex,
+//        // this will be set when a new tab is tapped
+//        items: [
+//          BottomNavigationBarItem(
+//            backgroundColor: Colors.white,
+//            icon: new Icon(Icons.person,color: Colors.white),
+//            title: new Text('Profile',style: TextStyle(color: Colors.white)),
+//          ),
+//          BottomNavigationBarItem(
+//            backgroundColor: Colors.white,
+//            icon: new Icon(Icons.location_on,color: Colors.white,),
+//            title: new Text('Navigation',style: TextStyle(color: Colors.white),),
+//          ),
+//
+//        ],
+//      ),
 
-        "Follow Me ",style: GoogleFonts.pacifico(
-        textStyle: TextStyle(fontSize: 30
-            ,color: Colors.white),
+     appBar:AppBar(
+       backgroundColor: Colors.black87,
+       title: Text('Follow Me',),centerTitle: true,
+       automaticallyImplyLeading: false,
+       leading: IconButton(
+         icon: Icon(Icons.menu),
+         onPressed: () {
+           _key.currentState.openDrawer();
+         },
+       ),
+     ),
 
-      ),
+        drawer: _buildDrawer(context),
 
-      ),
-      centerTitle: true,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(child: FaIcon(FontAwesomeIcons.powerOff,)),
-        ),
+    //AppBar(backgroundColor: Colors.black87,title:Text(
+//
+//        "Follow Me ",style: GoogleFonts.pacifico(
+//        textStyle: TextStyle(fontSize: 30
+//            ,color: Colors.white),
+//
+//      ),
+//
+//      ),
+//      centerTitle: true,
+//      actions: <Widget>[
+//        Padding(
+//          padding: const EdgeInsets.all(8.0),
+//          child: Center(child: FaIcon(FontAwesomeIcons.powerOff,)),
+//        ),
+//
+//      ],
+//      ),
 
-      ],
-      ),
-
-      body: Column(children: <Widget>[
-
-
-        Center(child: Text(
-
-        "Hi, Username ",style: GoogleFonts.pacifico(
-          textStyle: TextStyle(fontSize: 30
-              ,color: Colors.black87),
-
-        ),
-
-
-
-
-
-      )),
-    Container(
-      margin: EdgeInsets.only(top: 25),
-      height: 400,
-      width: double.infinity,
-      child: ListView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection:Axis.horizontal ,
-        children: <Widget>[
-          buildCard(),
-          buildCard1(),
-          buildCard2(),
-        ],
-
-
-
-      ),
-    ),
-
-
-      ],),
-
+      body: _children[_currentIndex]
 
 
 
@@ -151,7 +184,22 @@ class _HomeScrrenState extends State<HomeScrren> {
 
         );
   }
-}
+
+  void onTabTapped(int index) {
+
+    if (index == 5) {
+      // SystemNavigator.pop();
+      //  _launchSupport();
+    }
+    else {
+      setState(() {
+        _currentIndex = index;
+      });
+    }
+  }
+
+  }
+
 Card buildCard1() {
   return Card(
     margin: EdgeInsets.all(10),
@@ -260,3 +308,193 @@ Card buildCard2() {
 
 
 
+_buildDrawer(BuildContext context) {
+  final String image ='assets/images/background1.jpg';
+  return ClipPath(
+
+    /// ---------------------------
+    /// Building Shape for drawer .
+    /// ---------------------------
+
+    clipper: OvalRightBorderClipper(),
+
+    /// ---------------------------
+    /// Building drawer widget .
+    /// ---------------------------
+
+    child: Drawer(
+      child: Container(
+        padding: const EdgeInsets.only(left: 16.0, right: 40),
+        decoration: BoxDecoration(
+            color:  Colors.black87, boxShadow: [BoxShadow(color: Colors.white)]),
+        width: 300,
+        child: SafeArea(
+
+          /// ---------------------------
+          /// Building scrolling  content for drawer .
+          /// ---------------------------
+
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.power_settings_new,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {},
+                  ),
+                ),
+
+
+                /// ---------------------------
+                /// Building header for drawer .
+                /// ---------------------------
+
+                Container(
+                  height: 90,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          colors: [Colors.orange, Colors.deepOrange])),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage("assets/images/imgg1.jpeg"),
+                  ),
+                ),
+                SizedBox(height: 5.0),
+
+                /// ---------------------------
+                /// Building header title for drawer .
+                /// ---------------------------
+
+                Text(
+                  "Moin Khan",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "@mkhan603",
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
+                ),
+
+                /// ---------------------------
+                /// Building items list  for drawer .
+                /// ---------------------------
+
+                SizedBox(height: 30.0),
+                _buildRow(Icons.home, "Home"),
+                _buildDivider(),
+
+                _buildRow(Icons.card_giftcard, "Rewards", showBadge: true),
+                _buildDivider(),
+                _buildRow(Icons.gps_fixed, "Map Info",
+                    ),
+                _buildDivider(),
+                GestureDetector(
+                    onTap: (){
+
+                      Navigator.push(context,
+
+                        MaterialPageRoute(builder: (context) => Profile2()),
+                      );
+                    },
+
+                    child: _buildRow(Icons.settings, "Settings")),
+
+                _buildDivider(),
+                _buildRow(Icons.info_outline, "Help"),
+                _buildDivider(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+/// ---------------------------
+/// Building divider for drawer .
+/// ---------------------------
+
+Divider _buildDivider() {
+  return Divider(
+    color: Colors.grey.shade600,
+  );
+}
+
+/// ---------------------------
+/// Building item  for drawer .
+/// ---------------------------
+
+Widget _buildRow(IconData icon, String title, {bool showBadge = false}) {
+  final TextStyle tStyle = TextStyle(color: Colors.white, fontSize: 16.0);
+  return Container(
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Row(children: [
+      Icon(
+        icon,
+        color: Colors.white,
+      ),
+      SizedBox(width: 10.0),
+      Text(
+        title,
+        style: tStyle,
+      ),
+      Spacer(),
+      if(showBadge)
+        Material(
+          color: Colors.deepOrange,
+          elevation: 5.0,
+          shadowColor: Colors.red,
+          borderRadius: BorderRadius.circular(5.0),
+          child: Container(
+            width: 25,
+            height: 25,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.deepOrange,
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: Text(
+              "10+",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ) ,
+    ],),
+  );
+}
+
+
+/// ------------------
+/// for shaping the drawer. You can customize it as your own
+/// ------------------
+class OvalRightBorderClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, 0);
+    path.lineTo(size.width-40, 0);
+    path.quadraticBezierTo(
+        size.width, size.height / 4, size.width, size.height/2);
+    path.quadraticBezierTo(
+        size.width, size.height - (size.height / 4), size.width-40, size.height);
+    path.lineTo(0, size.height);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
+
+}
