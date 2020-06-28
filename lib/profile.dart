@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'CRUD.dart';
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -19,7 +20,7 @@ class _ProfileState extends State<Profile> {
 
           Center(child: Text(
 
-            "Hi, Moin ",style: GoogleFonts.pacifico(
+            "Hi, "+ CRUD.name,style: GoogleFonts.pacifico(
             textStyle: TextStyle(fontSize: 30
                 ,color: Colors.black87),
 

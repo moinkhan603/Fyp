@@ -1,5 +1,6 @@
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:fyp/CRUD.dart';
 import 'profile2.dart';
 import 'package:fyp/trailInfo.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,14 @@ Profile(),
 
   ];
 
+@override
+  void initState() {
+    // TODO: implement initState
 
+
+  super.initState();
+  CRUD.getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,8 +167,8 @@ Profile(),
                       new CircularPercentIndicator(
                         radius: 200.0,
                         lineWidth: 15.0,
-                        percent: 0.4,
-                        center: new Text("40/100",  style:GoogleFonts.pacifico(
+                        percent: 0,
+                        center: new Text("0/100",  style:GoogleFonts.pacifico(
                           textStyle: TextStyle(fontSize: 30
                               ,color: Colors.black87),
 
@@ -232,7 +240,7 @@ Card buildCard1() {
                 ),),
                 SizedBox(height: 35,),
 
-                Text("01", style:  GoogleFonts.roboto(
+                Text("0", style:  GoogleFonts.roboto(
                   textStyle: TextStyle(fontSize: 100
                       ,color: Colors.blue),
 
@@ -344,7 +352,10 @@ _buildDrawer(BuildContext context) {
                       Icons.power_settings_new,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                      Navigator.pop(context);
+                    },
                   ),
                 ),
 
@@ -362,7 +373,7 @@ _buildDrawer(BuildContext context) {
                           colors: [Colors.orange, Colors.deepOrange])),
                   child: CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage("assets/images/imgg1.jpeg"),
+                    backgroundImage: NetworkImage(CRUD.imgurl),
                   ),
                 ),
                 SizedBox(height: 5.0),
@@ -372,14 +383,14 @@ _buildDrawer(BuildContext context) {
                 /// ---------------------------
 
                 Text(
-                  "Moin Khan",
+                  CRUD.name,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "@mkhan603",
+                  CRUD.email,
                   style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
 
@@ -462,7 +473,7 @@ Widget _buildRow(IconData icon, String title, {bool showBadge = false}) {
               borderRadius: BorderRadius.circular(5.0),
             ),
             child: Text(
-              "10+",
+              "0",
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.0,

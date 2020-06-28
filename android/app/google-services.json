@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "578692304743",
+    "firebase_url": "https://fyp3-7b1f7.firebaseio.com",
+    "project_id": "fyp3-7b1f7",
+    "storage_bucket": "fyp3-7b1f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578692304743:android:1b5f7c3223681cabae69c2",
+        "android_client_info": {
+          "package_name": "com.flashsol.fyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578692304743-s7t3mos2vpp9l6fohgvqgv7f37sidh5r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJH5Gn9-x7G2EeiKmSoTsQ8UyEt190oNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578692304743-s7t3mos2vpp9l6fohgvqgv7f37sidh5r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
